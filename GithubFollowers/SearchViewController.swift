@@ -22,8 +22,11 @@ class SearchViewController: UIViewController {
         return textField
     }()
     
-    private let customActionButton = GFCustomButton(backgroundColor: .systemGreen, title: "Get Followers")
+    private let customActionButton = GFCustomButton(backgroundColor: .systemGreen, title: "Search For Followers")
     
+    var isUsernameTyped: Bool {
+        return !usernameTextField.text!.isEmpty
+    }
     
     //MARK: - Lifecycle
     
@@ -32,6 +35,9 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubViews(githubImageView, usernameTextField, customActionButton)
         addConstraints()
+        customActionButton.addTarget(self, action: #selector(didTapSearchFollowersButton), for: .touchUpInside)
+        dismissKeyboard()
+        textFieldDelegation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,4 +67,28 @@ class SearchViewController: UIViewController {
         ])
     }
     
+    @objc private func didTapSearchFollowersButton() {
+        guard isUsernameTyped else { return }
+        
+        let followersListVC = FollowersListViewController()
+        followersListVC.username = usernameTextField.text
+        followersListVC.title = usernameTextField.text
+        navigationController?.pushViewController(followersListVC, animated: true)
+    }
+    
+    private func textFieldDelegation() {
+        usernameTextField.delegate = self
+    }
+    
+    private func dismissKeyboard() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        didTapSearchFollowersButton()
+        return true
+    }
 }

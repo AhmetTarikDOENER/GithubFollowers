@@ -20,6 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = createTabbarController()
         window?.makeKeyAndVisible()
+        
+        configureNavBar()
     }
     
     //MARK: - Private
@@ -47,27 +49,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         return tabbar
     }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-       
+    
+    private func configureNavBar() {
+        UINavigationBar.appearance().tintColor = .systemGreen
     }
+    
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        
-    }
+    func sceneDidDisconnect(_ scene: UIScene) {}
 
-    func sceneWillResignActive(_ scene: UIScene) {
-        
-    }
+    func sceneDidBecomeActive(_ scene: UIScene) {}
 
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        
-    }
+    func sceneWillResignActive(_ scene: UIScene) {}
 
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        
-    }
+    func sceneWillEnterForeground(_ scene: UIScene) {}
 
+    func sceneDidEnterBackground(_ scene: UIScene) {}
 
 }
 

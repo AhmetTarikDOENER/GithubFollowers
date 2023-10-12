@@ -16,6 +16,7 @@
 		45F4B4B02AD83ED000296257 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4AF2AD83ED000296257 /* Extensions.swift */; };
 		45F4B4B22AD8406E00296257 /* GFCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4B12AD8406E00296257 /* GFCustomButton.swift */; };
 		45F4B4B42AD8459F00296257 /* GFCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4B32AD8459F00296257 /* GFCustomTextField.swift */; };
+		45F4B4B62AD8657400296257 /* FollowersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4B52AD8657400296257 /* FollowersListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		45F4B4AF2AD83ED000296257 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		45F4B4B12AD8406E00296257 /* GFCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFCustomButton.swift; sourceTree = "<group>"; };
 		45F4B4B32AD8459F00296257 /* GFCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFCustomTextField.swift; sourceTree = "<group>"; };
+		45F4B4B52AD8657400296257 /* FollowersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				45F4B4AF2AD83ED000296257 /* Extensions.swift */,
 				45F4B4B12AD8406E00296257 /* GFCustomButton.swift */,
 				45F4B4B32AD8459F00296257 /* GFCustomTextField.swift */,
+				45F4B4B52AD8657400296257 /* FollowersListViewController.swift */,
 			);
 			path = GithubFollowers;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 				45F4B4B22AD8406E00296257 /* GFCustomButton.swift in Sources */,
 				453956622AD7058E00CB5396 /* SearchViewController.swift in Sources */,
 				45E895A52AD5C683003E96BB /* AppDelegate.swift in Sources */,
+				45F4B4B62AD8657400296257 /* FollowersListViewController.swift in Sources */,
 				453956642AD705C100CB5396 /* FavoritesListViewController.swift in Sources */,
 				45F4B4B42AD8459F00296257 /* GFCustomTextField.swift in Sources */,
 				45E895A72AD5C683003E96BB /* SceneDelegate.swift in Sources */,

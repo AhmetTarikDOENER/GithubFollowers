@@ -30,6 +30,7 @@ class GFCustomTextField: UITextField {
         font = UIFont.preferredFont(forTextStyle: .title2); adjustsFontSizeToFitWidth = true; minimumFontSize = 15
         backgroundColor = .tertiarySystemBackground
         autocorrectionType = .no
+        returnKeyType = .go
         placeholder = "Enter a username"
     }
     
