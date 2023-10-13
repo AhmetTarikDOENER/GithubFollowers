@@ -15,11 +15,11 @@ final class GFNetworkManager {
     
     private init() { }
     
-    public func getFollowers(for username: String, page: Int, completion: @escaping ([GFFollower]?, String?) -> Void) {
+    public func getFollowers(for username: String, page: Int, completion: @escaping ([GFFollower]?, GFErrorMessage?) -> Void) {
         let endpoint = baseUrl + "\(username)/followers?per_page=100&page=\(page)"
         
         guard let urlString = URL(string: endpoint) else {
-            completion(nil, "This username occured an invalid request. Please try again later.")
+            completion(nil, .invalidLoginName)
             return
         }
         
@@ -27,17 +27,17 @@ final class GFNetworkManager {
             data, response, error in
             
             if let _ = error {
-                completion(nil, "There is an issue to complete your request. Please check your internet connection.!")
+                completion(nil, .unableToComplete)
                 return
             }
             
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                completion(nil, "Invalid server response. Please try again")
+                completion(nil, .invalidResponse)
                 return
             }
             
             guard let data = data else {
-                completion(nil, "Invalid data from the server.")
+                completion(nil, .invalidData)
                 return
             }
             
@@ -47,7 +47,7 @@ final class GFNetworkManager {
                 let followers = try decoder.decode([GFFollower].self, from: data)
                 completion(followers, nil)
             } catch {
-                completion(nil, "The received data occurs an error. Please try again later.")
+                completion(nil, .invalidData)
             }
         }
         task.resume()

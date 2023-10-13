@@ -36,9 +36,7 @@ class GFCustomButton: UIButton {
     private func configureSetup() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 10
-        titleLabel?.textColor = .white
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        
     }
     
 }
