@@ -17,14 +17,13 @@ final class GFFollowersListViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         GFNetworkManager.shared.getFollowers(for: username, page: 1) {
-            [weak self] followers, error in
-            guard let followers = followers else {
-                self?.presentGFCustomAlertOnMainThread(title: "Bad Request", message: error!.rawValue, buttonTitle: "OK")
-                return
+            [weak self] result in
+            switch result {
+            case .success(let followers):
+                print(followers)
+            case .failure(let error):
+                self?.presentGFCustomAlertOnMainThread(title: "Bad Stuff Happened.", message: error.rawValue, buttonTitle: "OK")
             }
-            
-            print("Followers.count = \(followers.count)")
-            print(followers)
         }
     }
     
