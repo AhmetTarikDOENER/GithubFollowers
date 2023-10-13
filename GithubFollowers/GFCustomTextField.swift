@@ -13,7 +13,7 @@ class GFCustomTextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupConfiguration()
+        configureSetup()
     }
     
     required init?(coder: NSCoder) {
@@ -23,7 +23,7 @@ class GFCustomTextField: UITextField {
     
     //MARK: - Private
     
-    private func setupConfiguration() {
+    private func configureSetup() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 10; layer.borderWidth = 2; layer.borderColor = UIColor.systemGray4.cgColor
         textColor = .label; textAlignment = .center; tintColor = .label

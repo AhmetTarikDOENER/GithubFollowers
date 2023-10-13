@@ -7,7 +7,8 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+/// Search Screen Controller
+final class SearchViewController: UIViewController {
     
     private let githubImageView: UIImageView = {
         let imageView = UIImageView()
@@ -68,7 +69,10 @@ class SearchViewController: UIViewController {
     }
     
     @objc private func didTapSearchFollowersButton() {
-        guard isUsernameTyped else { return }
+        guard isUsernameTyped else { 
+            presentGFCustomAlertOnMainThread(title: "Empty Username", message: "Please enter a username", buttonTitle: "OK")
+            return
+        }
         
         let followersListVC = FollowersListViewController()
         followersListVC.username = usernameTextField.text
