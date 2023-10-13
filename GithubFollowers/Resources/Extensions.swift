@@ -17,11 +17,12 @@ extension UIView {
 
 extension UIViewController {
     
-    @MainActor
     func presentGFCustomAlertOnMainThread(title: String, message: String, buttonTitle: String) {
         let alertViewController = GFCustomAlertViewController(title: title, message: message, buttonTitle: buttonTitle)
         alertViewController.modalPresentationStyle = .overFullScreen
         alertViewController.modalTransitionStyle = .crossDissolve
-        present(alertViewController, animated: true)
+        DispatchQueue.main.async {
+            self.present(alertViewController, animated: true)
+        }
     }
 }
