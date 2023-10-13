@@ -8,7 +8,7 @@
 import UIKit
 
 /// Search Screen Controller
-final class SearchViewController: UIViewController {
+final class GFSearchViewController: UIViewController {
     
     private let githubImageView: UIImageView = {
         let imageView = UIImageView()
@@ -43,7 +43,7 @@ final class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     
@@ -74,7 +74,7 @@ final class SearchViewController: UIViewController {
             return
         }
         
-        let followersListVC = FollowersListViewController()
+        let followersListVC = GFFollowersListViewController()
         followersListVC.username = usernameTextField.text
         followersListVC.title = usernameTextField.text
         navigationController?.pushViewController(followersListVC, animated: true)
@@ -90,7 +90,7 @@ final class SearchViewController: UIViewController {
     }
 }
 
-extension SearchViewController: UITextFieldDelegate {
+extension GFSearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         didTapSearchFollowersButton()
         return true

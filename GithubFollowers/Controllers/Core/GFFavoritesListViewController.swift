@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FavoritesListViewController: UIViewController {
+final class GFFavoritesListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
