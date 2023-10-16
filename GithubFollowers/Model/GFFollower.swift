@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GFFollower: Codable {
+struct GFFollower: Codable, Hashable {
     
     var login: String
     var avatarUrl: String

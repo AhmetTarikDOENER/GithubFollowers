@@ -30,13 +30,13 @@ class GFFollowerCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Private
     
-    private func set(follower: GFFollower) {
+    public func set(follower: GFFollower) {
         usernameTitleLabel.text = follower.login
     }
     
     private func configureSetup() {
         addSubViews(avatarImageView, usernameTitleLabel)
-        
+        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
