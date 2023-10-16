@@ -19,6 +19,7 @@ final class GFFollowersListViewController: UIViewController {
     var dataSource: UICollectionViewDiffableDataSource<Section, GFFollower>!
     var page: Int = 1
     var hasMoreFollowers = true
+    var filteredFollowers: [GFFollower] = []
     
     //MARK: - Lifecycle
     
@@ -28,6 +29,7 @@ final class GFFollowersListViewController: UIViewController {
         configureCollectionView()
         getFollowers(username: username, page: page)
         configureDataSource()
+        configureSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +57,7 @@ final class GFFollowersListViewController: UIViewController {
                     }
                     return
                 }
-                self.updateData()
+                self.updateData(on: self.followers)
             case .failure(let error):
                 self.presentGFCustomAlertOnMainThread(title: "Bad Stuff Happened.", message: error.rawValue, buttonTitle: "OK")
             }
@@ -85,13 +87,22 @@ final class GFFollowersListViewController: UIViewController {
         })
     }
     
-    private func updateData() {
+    private func updateData(on followers: [GFFollower]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, GFFollower>()
         snapShot.appendSections([.main])
         snapShot.appendItems(followers)
         DispatchQueue.main.async {
             self.dataSource.apply(snapShot, animatingDifferences: true)
         }
+    }
+    
+    private func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Type username for searching"
+        searchController.obscuresBackgroundDuringPresentation = true
+        navigationItem.searchController = searchController
     }
 }
 
@@ -107,5 +118,18 @@ extension GFFollowersListViewController: UICollectionViewDelegate {
             page += 1
             getFollowers(username: username, page: page)
         }
+    }
+}
+
+extension GFFollowersListViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
+        filteredFollowers = followers.filter { $0.login.lowercased().contains(filter.lowercased()) }
+        updateData(on: filteredFollowers)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        updateData(on: followers)
     }
 }
