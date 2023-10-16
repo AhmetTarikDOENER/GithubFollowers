@@ -5,13 +5,15 @@
 //  Created by Ahmet Tarik DÖNER on 13.10.2023.
 //
 
-import Foundation
+import UIKit
 
 final class GFNetworkManager {
     
     static let shared = GFNetworkManager()
     
     private let baseUrl = "https://api.github.com/users/"
+    
+    let cache = NSCache<NSString, UIImage>()
     
     private init() { }
     
