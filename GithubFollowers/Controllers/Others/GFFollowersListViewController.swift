@@ -8,7 +8,7 @@
 import UIKit
 
 final class GFFollowersListViewController: UIViewController {
-
+    
     enum Section {
         case main
     }
@@ -42,14 +42,22 @@ final class GFFollowersListViewController: UIViewController {
         showLoadingView()
         GFNetworkManager.shared.getFollowers(for: username, page: page) {
             [weak self] result in
-            self?.dismissLoadingView()
+            guard let self = self else { return }
+            self.dismissLoadingView()
             switch result {
             case .success(let followers):
-                if followers.count < 100 { self?.hasMoreFollowers = false }
-                self?.followers.append(contentsOf: followers)
-                self?.updateData()
+                if followers.count < 100 { self.hasMoreFollowers = false }
+                self.followers.append(contentsOf: followers)
+                if self.followers.isEmpty {
+                    let message = "This user doesn`t have any followers.😢"
+                    DispatchQueue.main.async {
+                        self.showEmptyStateView(with: message, in: self.view)
+                    }
+                    return
+                }
+                self.updateData()
             case .failure(let error):
-                self?.presentGFCustomAlertOnMainThread(title: "Bad Stuff Happened.", message: error.rawValue, buttonTitle: "OK")
+                self.presentGFCustomAlertOnMainThread(title: "Bad Stuff Happened.", message: error.rawValue, buttonTitle: "OK")
             }
         }
     }
@@ -68,7 +76,7 @@ final class GFFollowersListViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, GFFollower>(collectionView: collectionView, cellProvider: { 
+        dataSource = UICollectionViewDiffableDataSource<Section, GFFollower>(collectionView: collectionView, cellProvider: {
             collectionView, indexPath, follower -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowerCollectionViewCell.cellIdentifier, for: indexPath) as? GFFollowerCollectionViewCell
             cell?.set(follower: follower)
@@ -100,5 +108,4 @@ extension GFFollowersListViewController: UICollectionViewDelegate {
             getFollowers(username: username, page: page)
         }
     }
-    
 }
