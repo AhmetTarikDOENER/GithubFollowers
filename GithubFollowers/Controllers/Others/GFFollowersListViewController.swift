@@ -39,8 +39,10 @@ final class GFFollowersListViewController: UIViewController {
     //MARK: - Private
     
     private func getFollowers(username: String, page: Int){
+        showLoadingView()
         GFNetworkManager.shared.getFollowers(for: username, page: page) {
             [weak self] result in
+            self?.dismissLoadingView()
             switch result {
             case .success(let followers):
                 if followers.count < 100 { self?.hasMoreFollowers = false }
