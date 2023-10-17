@@ -21,6 +21,9 @@
 		453977632AD9D28600CFDF04 /* GFNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453977622AD9D28600CFDF04 /* GFNetworkManager.swift */; };
 		453977662AD9E92600CFDF04 /* GFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453977652AD9E92600CFDF04 /* GFError.swift */; };
 		45C45FE42ADEF4C800D9B140 /* GFUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C45FE32ADEF4C800D9B140 /* GFUserInfoViewController.swift */; };
+		45C45FE62ADF0B4700D9B140 /* GFUserHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C45FE52ADF0B4700D9B140 /* GFUserHeaderViewController.swift */; };
+		45C45FE82ADF0BD200D9B140 /* GFSecondaryTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C45FE72ADF0BD200D9B140 /* GFSecondaryTitleLabel.swift */; };
+		45C45FEA2ADF148D00D9B140 /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C45FE92ADF148D00D9B140 /* SFSymbols.swift */; };
 		45E895A52AD5C683003E96BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E895A42AD5C683003E96BB /* AppDelegate.swift */; };
 		45E895A72AD5C683003E96BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E895A62AD5C683003E96BB /* SceneDelegate.swift */; };
 		45E895AE2AD5C684003E96BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45E895AD2AD5C684003E96BB /* Assets.xcassets */; };
@@ -46,6 +49,9 @@
 		453977622AD9D28600CFDF04 /* GFNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFNetworkManager.swift; sourceTree = "<group>"; };
 		453977652AD9E92600CFDF04 /* GFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFError.swift; sourceTree = "<group>"; };
 		45C45FE32ADEF4C800D9B140 /* GFUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserInfoViewController.swift; sourceTree = "<group>"; };
+		45C45FE52ADF0B4700D9B140 /* GFUserHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserHeaderViewController.swift; sourceTree = "<group>"; };
+		45C45FE72ADF0BD200D9B140 /* GFSecondaryTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSecondaryTitleLabel.swift; sourceTree = "<group>"; };
+		45C45FE92ADF148D00D9B140 /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		45E895A12AD5C683003E96BB /* GithubFollowers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubFollowers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E895A42AD5C683003E96BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45E895A62AD5C683003E96BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				453977502AD98BEC00CFDF04 /* GFTitleLabel.swift */,
+				45C45FE72ADF0BD200D9B140 /* GFSecondaryTitleLabel.swift */,
 				453977522AD98E3E00CFDF04 /* GFBodyLabel.swift */,
 			);
 			path = Labels;
@@ -115,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				453977542AD98FC400CFDF04 /* GFCustomAlertViewController.swift */,
+				45C45FE52ADF0B4700D9B140 /* GFUserHeaderViewController.swift */,
 				453977572AD9BF9200CFDF04 /* Core */,
 				453977582AD9BFA600CFDF04 /* Others */,
 			);
@@ -193,6 +201,7 @@
 			children = (
 				453977652AD9E92600CFDF04 /* GFError.swift */,
 				453673242ADD791B00390549 /* UIHelper.swift */,
+				45C45FE92ADF148D00D9B140 /* SFSymbols.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -297,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C45FEA2ADF148D00D9B140 /* SFSymbols.swift in Sources */,
 				45F4B4B02AD83ED000296257 /* Extensions.swift in Sources */,
 				453977662AD9E92600CFDF04 /* GFError.swift in Sources */,
 				45F4B4B22AD8406E00296257 /* GFCustomButton.swift in Sources */,
@@ -308,9 +318,11 @@
 				453977552AD98FC400CFDF04 /* GFCustomAlertViewController.swift in Sources */,
 				45138A112ADAB40C008E1F0A /* GFFollowerCollectionViewCell.swift in Sources */,
 				453956642AD705C100CB5396 /* GFFavoritesListViewController.swift in Sources */,
+				45C45FE62ADF0B4700D9B140 /* GFUserHeaderViewController.swift in Sources */,
 				453977512AD98BEC00CFDF04 /* GFTitleLabel.swift in Sources */,
 				45C45FE42ADEF4C800D9B140 /* GFUserInfoViewController.swift in Sources */,
 				45F4B4B42AD8459F00296257 /* GFCustomTextField.swift in Sources */,
+				45C45FE82ADF0BD200D9B140 /* GFSecondaryTitleLabel.swift in Sources */,
 				453977632AD9D28600CFDF04 /* GFNetworkManager.swift in Sources */,
 				453673272ADDB86500390549 /* GFEmptyStateView.swift in Sources */,
 				45E895A72AD5C683003E96BB /* SceneDelegate.swift in Sources */,
