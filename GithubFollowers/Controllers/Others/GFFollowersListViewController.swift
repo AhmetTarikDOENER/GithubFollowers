@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Followers list view
 final class GFFollowersListViewController: UIViewController {
     
     enum Section {
@@ -20,6 +21,7 @@ final class GFFollowersListViewController: UIViewController {
     var page: Int = 1
     var hasMoreFollowers = true
     var filteredFollowers: [GFFollower] = []
+    var onSearching = false
     
     //MARK: - Lifecycle
     
@@ -106,6 +108,8 @@ final class GFFollowersListViewController: UIViewController {
     }
 }
 
+//MARK: - UICollectionViewDelegate
+
 extension GFFollowersListViewController: UICollectionViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -119,17 +123,31 @@ extension GFFollowersListViewController: UICollectionViewDelegate {
             getFollowers(username: username, page: page)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let currentArrayType = onSearching ? filteredFollowers : followers
+        let follower = currentArrayType[indexPath.item]
+        
+        let destinationVC = GFUserInfoViewController()
+        destinationVC.username = follower.login
+        let navController = UINavigationController(rootViewController: destinationVC)
+        present(navController, animated: true)
+    }
 }
+
+//MARK: - UISearchBarDelegate & UISearchResultUpdating
 
 extension GFFollowersListViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
+        onSearching = true
         filteredFollowers = followers.filter { $0.login.lowercased().contains(filter.lowercased()) }
         updateData(on: filteredFollowers)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        onSearching = false
         updateData(on: followers)
     }
 }
