@@ -55,4 +55,42 @@ final class GFNetworkManager {
         task.resume()
     }
     
+    public func getUserInfo(for username: String, completion: @escaping (Result<GFUser, GFError>) -> Void) {
+        let endpoint = baseUrl + "\(username)"
+        
+        guard let urlString = URL(string: endpoint) else {
+            completion(.failure(.invalidLoginName))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: urlString) {
+            data, response, error in
+            
+            if let _ = error {
+                completion(.failure(.unableToComplete))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.invalidData))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let user = try decoder.decode(GFUser.self, from: data)
+                completion(.success(user))
+            } catch {
+                completion(.failure(.invalidData))
+            }
+        }
+        task.resume()
+    }
+    
 }

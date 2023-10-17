@@ -17,7 +17,16 @@ class GFUserInfoViewController: UIViewController {
         view.backgroundColor = .systemBackground
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissViewController))
         navigationItem.rightBarButtonItem = doneBtn
-        print(username!)
+        
+        GFNetworkManager.shared.getUserInfo(for: username) {
+            [weak self] result in
+            switch result {
+            case .success(let user):
+                print(user)
+            case .failure(let error):
+                self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
     }
     
     
