@@ -24,4 +24,8 @@ class GFItemPRepoViewController: GFItemInfoViewController {
         actionButton.set(background: .systemPurple, title: "Github Profile")
     }
     
+    override func didTapActionButton() {
+        delegate?.gfDidTapGithubProfile(for: user)
+    }
+    
 }

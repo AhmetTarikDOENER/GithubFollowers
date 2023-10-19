@@ -23,6 +23,7 @@ class GFItemInfoViewController: UIViewController {
     let actionButton = GFCustomButton()
     
     var user: GFUser!
+    weak var delegate: GFUserInfoViewControllerDelegate?
     
     init(user: GFUser) {
         super.init(nibName: nil, bundle: nil)
@@ -41,6 +42,7 @@ class GFItemInfoViewController: UIViewController {
         stackView.addArrangedSubview(firstItemInfoView)
         stackView.addArrangedSubview(secondItemInfoView)
         configureBackgroundView()
+        configureActionButton()
         addConstraints()
     }
     
@@ -50,6 +52,15 @@ class GFItemInfoViewController: UIViewController {
     private func configureBackgroundView() {
         view.layer.cornerRadius = 18
         view.backgroundColor = .secondarySystemBackground
+    }
+    
+    private func configureActionButton() {
+        actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func didTapActionButton() {
+        
     }
     
     private func addConstraints() {

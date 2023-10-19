@@ -134,7 +134,6 @@
 			children = (
 				453977542AD98FC400CFDF04 /* GFCustomAlertViewController.swift */,
 				45C45FE52ADF0B4700D9B140 /* GFUserHeaderViewController.swift */,
-				45F1D5182AE16483002FF1F2 /* GFItemInfoViewController.swift */,
 				453977572AD9BF9200CFDF04 /* Core */,
 				453977582AD9BFA600CFDF04 /* Others */,
 			);
@@ -255,6 +254,7 @@
 		45F1D51E2AE16E91002FF1F2 /* ItemInfoViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				45F1D5182AE16483002FF1F2 /* GFItemInfoViewController.swift */,
 				45C45FEB2ADF302E00D9B140 /* GFItemInfoView.swift */,
 				45F1D51A2AE169C2002FF1F2 /* GFItemPRepoViewController.swift */,
 				45F1D51C2AE16D8E002FF1F2 /* GFFollowersItemViewController.swift */,

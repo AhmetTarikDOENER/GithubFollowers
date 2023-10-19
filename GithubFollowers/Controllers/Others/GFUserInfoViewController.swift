@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol GFUserInfoViewControllerDelegate: AnyObject {
+    func gfDidTapGithubProfile(for user: GFUser)
+    func gfDidTapGetFollowers(for user: GFUser)
+}
+
 final class GFUserInfoViewController: UIViewController {
 
     var username: String!
@@ -19,6 +24,7 @@ final class GFUserInfoViewController: UIViewController {
     private let firstItemView = UIView()
     private let secondItemView = UIView()
     
+    weak var delegate: GFFollowersListViewControllerDelegate?
     
     //MARK: - Lifecycle
     
@@ -45,15 +51,25 @@ final class GFUserInfoViewController: UIViewController {
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
-                    self?.add(childVC: GFUserHeaderViewController(user: user), to: self!.headerView)
-                    self?.add(childVC: GFItemPRepoViewController(user: user), to: self!.firstItemView)
-                    self?.add(childVC: GFFollowersItemViewController(user: user), to: self!.secondItemView)
-                    self?.dateLabel.text = "Github since, \(user.createdAt.convertToDisplayFormat())"
+                    self?.configureUIElements(with: user)
                 }
             case .failure(let error):
                 self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
             }
         }
+    }
+    
+    private func configureUIElements(with user: GFUser) {
+        let repoItemVC = GFItemPRepoViewController(user: user)
+        repoItemVC.delegate = self
+        
+        let followerItemVC = GFFollowersItemViewController(user: user)
+        followerItemVC.delegate = self
+        
+        self.add(childVC: GFUserHeaderViewController(user: user), to: self.headerView)
+        self.add(childVC: repoItemVC, to: self.firstItemView)
+        self.add(childVC: followerItemVC, to: self.secondItemView)
+        self.dateLabel.text = "Github since, \(user.createdAt.convertToDisplayFormat())"
     }
     
     @objc private func dismissViewController() {
@@ -93,5 +109,21 @@ final class GFUserInfoViewController: UIViewController {
             dateLabel.topAnchor.constraint(equalTo: secondItemView.bottomAnchor, constant: padding),
             dateLabel.heightAnchor.constraint(equalToConstant: 18),
         ])
+    }
+}
+
+extension GFUserInfoViewController: GFUserInfoViewControllerDelegate {
+   
+    func gfDidTapGithubProfile(for user: GFUser) {
+        guard let url = URL(string: user.htmlUrl) else {
+            presentGFCustomAlertOnMainThread(title: "Invalid URL", message: "Invalid URL attached to this user", buttonTitle: "OK")
+            return
+        }
+        presentSafariViewController(with: url)
+    }
+    
+    func gfDidTapGetFollowers(for user: GFUser) {
+        delegate?.gfDidRequestFollowers(for: user.login)
+        dismissViewController()
     }
 }
