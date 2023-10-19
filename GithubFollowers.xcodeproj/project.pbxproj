@@ -30,6 +30,8 @@
 		45E895AE2AD5C684003E96BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45E895AD2AD5C684003E96BB /* Assets.xcassets */; };
 		45E895B12AD5C684003E96BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45E895AF2AD5C684003E96BB /* LaunchScreen.storyboard */; };
 		45F1D5192AE16483002FF1F2 /* GFItemInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F1D5182AE16483002FF1F2 /* GFItemInfoViewController.swift */; };
+		45F1D51B2AE169C2002FF1F2 /* GFItemPRepoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F1D51A2AE169C2002FF1F2 /* GFItemPRepoViewController.swift */; };
+		45F1D51D2AE16D8E002FF1F2 /* GFFollowersItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F1D51C2AE16D8E002FF1F2 /* GFFollowersItemViewController.swift */; };
 		45F4B4B02AD83ED000296257 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4AF2AD83ED000296257 /* Extensions.swift */; };
 		45F4B4B22AD8406E00296257 /* GFCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4B12AD8406E00296257 /* GFCustomButton.swift */; };
 		45F4B4B42AD8459F00296257 /* GFCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4B32AD8459F00296257 /* GFCustomTextField.swift */; };
@@ -62,6 +64,8 @@
 		45E895B02AD5C684003E96BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45E895B22AD5C684003E96BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45F1D5182AE16483002FF1F2 /* GFItemInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoViewController.swift; sourceTree = "<group>"; };
+		45F1D51A2AE169C2002FF1F2 /* GFItemPRepoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemPRepoViewController.swift; sourceTree = "<group>"; };
+		45F1D51C2AE16D8E002FF1F2 /* GFFollowersItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowersItemViewController.swift; sourceTree = "<group>"; };
 		45F4B4AF2AD83ED000296257 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		45F4B4B12AD8406E00296257 /* GFCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFCustomButton.swift; sourceTree = "<group>"; };
 		45F4B4B32AD8459F00296257 /* GFCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFCustomTextField.swift; sourceTree = "<group>"; };
@@ -154,9 +158,9 @@
 		453977592AD9BFDF00CFDF04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				45F1D51E2AE16E91002FF1F2 /* ItemInfoViewControllers */,
 				45138A0F2ADAB3ED008E1F0A /* Cells */,
 				4539775B2AD9C04F00CFDF04 /* CustomViews */,
-				45E895AF2AD5C684003E96BB /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -175,7 +179,7 @@
 		4539775B2AD9C04F00CFDF04 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				45C45FEB2ADF302E00D9B140 /* GFItemInfoView.swift */,
+				45E895AF2AD5C684003E96BB /* LaunchScreen.storyboard */,
 				453673262ADDB86500390549 /* GFEmptyStateView.swift */,
 				45138A122ADAB4CD008E1F0A /* Image View */,
 				45138A0E2ADAB36F008E1F0A /* TextField */,
@@ -240,6 +244,16 @@
 				45E895B22AD5C684003E96BB /* Info.plist */,
 			);
 			path = GithubFollowers;
+			sourceTree = "<group>";
+		};
+		45F1D51E2AE16E91002FF1F2 /* ItemInfoViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				45C45FEB2ADF302E00D9B140 /* GFItemInfoView.swift */,
+				45F1D51A2AE169C2002FF1F2 /* GFItemPRepoViewController.swift */,
+				45F1D51C2AE16D8E002FF1F2 /* GFFollowersItemViewController.swift */,
+			);
+			path = ItemInfoViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,9 +327,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				45C45FEA2ADF148D00D9B140 /* Constants.swift in Sources */,
+				45F1D51B2AE169C2002FF1F2 /* GFItemPRepoViewController.swift in Sources */,
 				45F4B4B02AD83ED000296257 /* Extensions.swift in Sources */,
 				453977662AD9E92600CFDF04 /* GFError.swift in Sources */,
 				45F4B4B22AD8406E00296257 /* GFCustomButton.swift in Sources */,
+				45F1D51D2AE16D8E002FF1F2 /* GFFollowersItemViewController.swift in Sources */,
 				453956622AD7058E00CB5396 /* GFSearchViewController.swift in Sources */,
 				45E895A52AD5C683003E96BB /* AppDelegate.swift in Sources */,
 				453673252ADD791B00390549 /* UIHelper.swift in Sources */,

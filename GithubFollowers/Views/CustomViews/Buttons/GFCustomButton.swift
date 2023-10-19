@@ -21,9 +21,6 @@ class GFCustomButton: UIButton {
         fatalError()
     }
     
-    /// - Parameters:
-    ///   - backgroundColor: Desired background color of GFCustomButton
-    ///   - title: Desired title of GFCustomButton
     init(backgroundColor: UIColor, title: String) {
         super.init(frame: .zero)
         self.backgroundColor = backgroundColor
@@ -37,6 +34,11 @@ class GFCustomButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 10
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+    }
+    
+    func set(background: UIColor, title: String) {
+        self.backgroundColor = background
+        setTitle(title, for: .normal)
     }
     
 }

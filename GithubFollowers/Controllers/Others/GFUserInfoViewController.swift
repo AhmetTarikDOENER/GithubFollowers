@@ -15,15 +15,15 @@ final class GFUserInfoViewController: UIViewController {
     private let itemHeight: CGFloat = 140
     
     private let headerView = UIView()
-    private let githubItemView = UIView()
-    private let followerItemView = UIView()
+    private let firstItemView = UIView()
+    private let secondItemView = UIView()
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureViewController()
-        view.addSubViews(headerView, githubItemView, followerItemView)
+        view.addSubViews(headerView, firstItemView, secondItemView)
         addConstraints()
         getUserInfo()
     }
@@ -43,6 +43,8 @@ final class GFUserInfoViewController: UIViewController {
             case .success(let user):
                 DispatchQueue.main.async {
                     self?.add(childVC: GFUserHeaderViewController(user: user), to: self!.headerView)
+                    self?.add(childVC: GFItemPRepoViewController(user: user), to: self!.firstItemView)
+                    self?.add(childVC: GFFollowersItemViewController(user: user), to: self!.secondItemView)
                 }
             case .failure(let error):
                 self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
@@ -62,7 +64,7 @@ final class GFUserInfoViewController: UIViewController {
     }
     
     private func addConstraints() {
-        itemViews = [headerView, githubItemView, followerItemView]
+        itemViews = [headerView, firstItemView, secondItemView]
         for itemView in itemViews {
             itemView.translatesAutoresizingMaskIntoConstraints = false
             
@@ -73,18 +75,16 @@ final class GFUserInfoViewController: UIViewController {
         }
         
         headerView.backgroundColor = .systemBackground
-        githubItemView.backgroundColor = .systemGreen
-        followerItemView.backgroundColor = .systemPurple
         
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 180),
             
-            githubItemView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
-            githubItemView.heightAnchor.constraint(equalToConstant: itemHeight),
+            firstItemView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
+            firstItemView.heightAnchor.constraint(equalToConstant: itemHeight),
             
-            followerItemView.topAnchor.constraint(equalTo: githubItemView.bottomAnchor, constant: padding),
-            followerItemView.heightAnchor.constraint(equalToConstant: itemHeight),
+            secondItemView.topAnchor.constraint(equalTo: firstItemView.bottomAnchor, constant: padding),
+            secondItemView.heightAnchor.constraint(equalToConstant: itemHeight),
         ])
     }
 

@@ -18,18 +18,34 @@ class GFItemInfoViewController: UIViewController {
         return stackView
     }()
     
-    private let itemInfoViewPRepo = GFItemInfoView()
-    private let itemInfoViewPGists = GFItemInfoView()
-    private let actionButton = GFCustomButton()
+    let firstItemInfoView = GFItemInfoView()
+    let secondItemInfoView = GFItemInfoView()
+    let actionButton = GFCustomButton()
+    
+    var user: GFUser!
+    
+    init(user: GFUser) {
+        super.init(nibName: nil, bundle: nil)
+        self.user = user
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubViews(stackView, actionButton)
-        stackView.addArrangedSubview(itemInfoViewPRepo)
-        stackView.addArrangedSubview(itemInfoViewPGists)
+        stackView.addArrangedSubview(firstItemInfoView)
+        stackView.addArrangedSubview(secondItemInfoView)
         configureBackgroundView()
         addConstraints()
     }
+    
+    
+    //MARK: - Private
     
     private func configureBackgroundView() {
         view.layer.cornerRadius = 18
@@ -38,7 +54,7 @@ class GFItemInfoViewController: UIViewController {
     
     private func addConstraints() {
         let padding: CGFloat = 20
-        
+    
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
