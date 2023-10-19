@@ -29,6 +29,7 @@
 		45E895A72AD5C683003E96BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E895A62AD5C683003E96BB /* SceneDelegate.swift */; };
 		45E895AE2AD5C684003E96BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45E895AD2AD5C684003E96BB /* Assets.xcassets */; };
 		45E895B12AD5C684003E96BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45E895AF2AD5C684003E96BB /* LaunchScreen.storyboard */; };
+		45F1D5192AE16483002FF1F2 /* GFItemInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F1D5182AE16483002FF1F2 /* GFItemInfoViewController.swift */; };
 		45F4B4B02AD83ED000296257 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4AF2AD83ED000296257 /* Extensions.swift */; };
 		45F4B4B22AD8406E00296257 /* GFCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4B12AD8406E00296257 /* GFCustomButton.swift */; };
 		45F4B4B42AD8459F00296257 /* GFCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F4B4B32AD8459F00296257 /* GFCustomTextField.swift */; };
@@ -60,6 +61,7 @@
 		45E895AD2AD5C684003E96BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45E895B02AD5C684003E96BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45E895B22AD5C684003E96BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45F1D5182AE16483002FF1F2 /* GFItemInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoViewController.swift; sourceTree = "<group>"; };
 		45F4B4AF2AD83ED000296257 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		45F4B4B12AD8406E00296257 /* GFCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFCustomButton.swift; sourceTree = "<group>"; };
 		45F4B4B32AD8459F00296257 /* GFCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFCustomTextField.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				453977542AD98FC400CFDF04 /* GFCustomAlertViewController.swift */,
 				45C45FE52ADF0B4700D9B140 /* GFUserHeaderViewController.swift */,
+				45F1D5182AE16483002FF1F2 /* GFItemInfoViewController.swift */,
 				453977572AD9BF9200CFDF04 /* Core */,
 				453977582AD9BFA600CFDF04 /* Others */,
 			);
@@ -330,6 +333,7 @@
 				453977632AD9D28600CFDF04 /* GFNetworkManager.swift in Sources */,
 				453673272ADDB86500390549 /* GFEmptyStateView.swift in Sources */,
 				45E895A72AD5C683003E96BB /* SceneDelegate.swift in Sources */,
+				45F1D5192AE16483002FF1F2 /* GFItemInfoViewController.swift in Sources */,
 				453977602AD9CD4900CFDF04 /* GFUser.swift in Sources */,
 				4539775E2AD9CC7500CFDF04 /* GFFollower.swift in Sources */,
 				453977532AD98E3E00CFDF04 /* GFBodyLabel.swift in Sources */,
