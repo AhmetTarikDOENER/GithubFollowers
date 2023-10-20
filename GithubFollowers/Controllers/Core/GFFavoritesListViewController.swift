@@ -8,7 +8,7 @@
 import UIKit
 
 final class GFFavoritesListViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBrown
@@ -19,7 +19,7 @@ final class GFFavoritesListViewController: UIViewController {
             case .success(let favorites):
                 print(favorites)
             case .failure(let error):
-                break
+                print(error)
             }
         }
     }
