@@ -8,9 +8,9 @@
 import UIKit
 
 protocol GFUserInfoViewControllerDelegate: AnyObject {
-    func gfDidTapGithubProfile(for user: GFUser)
-    func gfDidTapGetFollowers(for user: GFUser)
+    func gfDidRequestFollowers(for username: String)
 }
+
 
 final class GFUserInfoViewController: GFDataLoadingViewController {
 
@@ -24,7 +24,7 @@ final class GFUserInfoViewController: GFDataLoadingViewController {
     private let firstItemView = UIView()
     private let secondItemView = UIView()
     
-    weak var delegate: GFFollowersListViewControllerDelegate?
+    weak var delegate: GFUserInfoViewControllerDelegate?
     
     //MARK: - Lifecycle
     
@@ -60,15 +60,9 @@ final class GFUserInfoViewController: GFDataLoadingViewController {
     }
     
     private func configureUIElements(with user: GFUser) {
-        let repoItemVC = GFItemPRepoViewController(user: user)
-        repoItemVC.delegate = self
-        
-        let followerItemVC = GFFollowersItemViewController(user: user)
-        followerItemVC.delegate = self
-        
         self.add(childVC: GFUserHeaderViewController(user: user), to: self.headerView)
-        self.add(childVC: repoItemVC, to: self.firstItemView)
-        self.add(childVC: followerItemVC, to: self.secondItemView)
+        self.add(childVC: GFItemPRepoViewController(user: user, delegate: self), to: self.firstItemView)
+        self.add(childVC: GFFollowersItemViewController(user: user, delegate: self), to: self.secondItemView)
         self.dateLabel.text = "Github since, \(user.createdAt.convertToMonthYearFormat())"
     }
     
@@ -112,8 +106,8 @@ final class GFUserInfoViewController: GFDataLoadingViewController {
     }
 }
 
-extension GFUserInfoViewController: GFUserInfoViewControllerDelegate {
-   
+extension GFUserInfoViewController: GFRepoItemInfoViewControllerDelegate {
+    
     func gfDidTapGithubProfile(for user: GFUser) {
         guard let url = URL(string: user.htmlUrl) else {
             presentGFCustomAlertOnMainThread(title: "Invalid URL", message: "Invalid URL attached to this user", buttonTitle: "OK")
@@ -121,6 +115,10 @@ extension GFUserInfoViewController: GFUserInfoViewControllerDelegate {
         }
         presentSafariViewController(with: url)
     }
+
+}
+
+extension GFUserInfoViewController: GFFollowersItemInfoViewControllerDelegate {
     
     func gfDidTapGetFollowers(for user: GFUser) {
         delegate?.gfDidRequestFollowers(for: user.login)

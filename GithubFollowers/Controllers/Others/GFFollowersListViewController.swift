@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol GFFollowersListViewControllerDelegate: AnyObject {
-    func gfDidRequestFollowers(for username: String)
-}
-
 /// Followers list view
 final class GFFollowersListViewController: GFDataLoadingViewController {
     
@@ -194,7 +190,7 @@ extension GFFollowersListViewController: UISearchResultsUpdating {
     }
 }
 
-extension GFFollowersListViewController: GFFollowersListViewControllerDelegate {
+extension GFFollowersListViewController: GFUserInfoViewControllerDelegate {
     func gfDidRequestFollowers(for username: String) {
         self.username = username
         title = username
