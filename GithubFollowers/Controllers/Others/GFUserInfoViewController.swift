@@ -12,7 +12,7 @@ protocol GFUserInfoViewControllerDelegate: AnyObject {
     func gfDidTapGetFollowers(for user: GFUser)
 }
 
-final class GFUserInfoViewController: UIViewController {
+final class GFUserInfoViewController: GFDataLoadingViewController {
 
     var username: String!
     
@@ -69,7 +69,7 @@ final class GFUserInfoViewController: UIViewController {
         self.add(childVC: GFUserHeaderViewController(user: user), to: self.headerView)
         self.add(childVC: repoItemVC, to: self.firstItemView)
         self.add(childVC: followerItemVC, to: self.secondItemView)
-        self.dateLabel.text = "Github since, \(user.createdAt.convertToDisplayFormat())"
+        self.dateLabel.text = "Github since, \(user.createdAt.convertToMonthYearFormat())"
     }
     
     @objc private func dismissViewController() {

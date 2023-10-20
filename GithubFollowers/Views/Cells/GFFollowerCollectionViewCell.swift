@@ -32,7 +32,12 @@ class GFFollowerCollectionViewCell: UICollectionViewCell {
     
     public func set(follower: GFFollower) {
         usernameTitleLabel.text = follower.login
-        avatarImageView.downloadImage(from: follower.avatarUrl)
+        GFNetworkManager.shared.downloadImage(from: follower.avatarUrl) {
+            [weak self] image in
+            DispatchQueue.main.async {
+                self?.avatarImageView.image = image
+            }
+        }
     }
     
     private func configureSetup() {

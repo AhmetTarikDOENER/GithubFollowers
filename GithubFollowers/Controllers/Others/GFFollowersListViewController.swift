@@ -12,7 +12,7 @@ protocol GFFollowersListViewControllerDelegate: AnyObject {
 }
 
 /// Followers list view
-final class GFFollowersListViewController: UIViewController {
+final class GFFollowersListViewController: GFDataLoadingViewController {
     
     enum Section {
         case main
