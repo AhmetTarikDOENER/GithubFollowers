@@ -27,6 +27,16 @@ final class GFFollowersListViewController: UIViewController {
     var filteredFollowers: [GFFollower] = []
     var onSearching = false
     
+    init(username: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.username = username
+        title = username
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {

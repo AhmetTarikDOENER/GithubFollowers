@@ -13,7 +13,7 @@ final class GFSearchViewController: UIViewController {
     private let githubImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "gh-logo")
+        imageView.image = Images.githubLogo
         
         return imageView
     }()
@@ -29,6 +29,8 @@ final class GFSearchViewController: UIViewController {
         return !usernameTextField.text!.isEmpty
     }
     
+    var githubImageViewTopConstraints: NSLayoutConstraint!
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -43,6 +45,7 @@ final class GFSearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        usernameTextField.text = ""
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
@@ -50,8 +53,14 @@ final class GFSearchViewController: UIViewController {
     //MARK: - Private
     
     private func addConstraints() {
+        let topConstraintConstant: CGFloat = DeviceTypes.isIphoneSE || DeviceTypes.isIphone8Zoomed ? 20 : 80
+        githubImageViewTopConstraints = githubImageView.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor,
+            constant: topConstraintConstant
+        )
+        githubImageViewTopConstraints.isActive = true
+        
         NSLayoutConstraint.activate([
-            githubImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
             githubImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             githubImageView.heightAnchor.constraint(equalToConstant: 200),
             githubImageView.widthAnchor.constraint(equalToConstant: 200),
@@ -74,9 +83,9 @@ final class GFSearchViewController: UIViewController {
             return
         }
         
-        let followersListVC = GFFollowersListViewController()
-        followersListVC.username = usernameTextField.text
-        followersListVC.title = usernameTextField.text
+        usernameTextField.resignFirstResponder()
+        
+        let followersListVC = GFFollowersListViewController(username: usernameTextField.text!)
         navigationController?.pushViewController(followersListVC, animated: true)
     }
     
@@ -85,7 +94,7 @@ final class GFSearchViewController: UIViewController {
     }
     
     private func dismissKeyboard() {
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
     }
 }

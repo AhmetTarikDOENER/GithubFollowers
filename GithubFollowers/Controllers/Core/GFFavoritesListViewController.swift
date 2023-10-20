@@ -80,9 +80,7 @@ extension GFFavoritesListViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let favorite = favorites[indexPath.row]
-        let destinationVC = GFFollowersListViewController()
-        destinationVC.username = favorite.login
-        destinationVC.title = favorite.login
+        let destinationVC = GFFollowersListViewController(username: favorite.login)
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     
