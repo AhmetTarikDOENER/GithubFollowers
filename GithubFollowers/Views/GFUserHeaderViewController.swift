@@ -17,7 +17,7 @@ class GFUserHeaderViewController: UIViewController {
     
     private let locationImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: SFSymbols.location)
+        imageView.image = SFSymbols.location
         imageView.tintColor = .secondaryLabel
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

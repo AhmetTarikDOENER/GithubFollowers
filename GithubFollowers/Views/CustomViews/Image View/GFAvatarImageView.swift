@@ -10,7 +10,7 @@ import UIKit
 /// Custom image view for avatars
 class GFAvatarImageView: UIImageView {
     
-    private let placeholderImage = UIImage(named: "avatar-placeholder")
+    private let placeholderImage = Images.placeHolderImage
     private let cache = GFNetworkManager.shared.cache
     
     //MARK: - Init
