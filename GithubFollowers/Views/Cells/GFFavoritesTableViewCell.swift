@@ -28,7 +28,7 @@ class GFFavoritesTableViewCell: UITableViewCell {
     
     //MARK: - Private
     
-    private func set(favorite: GFFollower) {
+    func set(favorite: GFFollower) {
         usernameLabel.text = favorite.login
         avatarImageView.downloadImage(from: favorite.avatarUrl)
     }
