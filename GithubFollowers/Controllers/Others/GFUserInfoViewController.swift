@@ -98,7 +98,7 @@ final class GFUserInfoViewController: GFDataLoadingViewController {
         
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 180),
+            headerView.heightAnchor.constraint(equalToConstant: 210),
             
             firstItemView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
             firstItemView.heightAnchor.constraint(equalToConstant: itemHeight),
@@ -107,7 +107,7 @@ final class GFUserInfoViewController: GFDataLoadingViewController {
             secondItemView.heightAnchor.constraint(equalToConstant: itemHeight),
             
             dateLabel.topAnchor.constraint(equalTo: secondItemView.bottomAnchor, constant: padding),
-            dateLabel.heightAnchor.constraint(equalToConstant: 18),
+            dateLabel.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 }
