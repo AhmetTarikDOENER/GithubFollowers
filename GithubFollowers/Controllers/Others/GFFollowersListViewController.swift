@@ -73,6 +73,12 @@ final class GFFollowersListViewController: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
+        navigationItem.rightBarButtonItem = addButton
+    }
+    
+    @objc private func didTapAddButton() {
+        
     }
     
     private func configureCollectionView() {
