@@ -78,7 +78,25 @@ final class GFFollowersListViewController: UIViewController {
     }
     
     @objc private func didTapAddButton() {
-        
+        showLoadingView()
+        GFNetworkManager.shared.getUserInfo(for: username) {
+            [weak self] result in
+            self?.dismissLoadingView()
+            switch result {
+            case .success(let user):
+                let favorite = GFFollower(login: user.login, avatarUrl: user.avatarUrl)
+                GFPersistenceManager.updateWith(favorite: favorite, actionType: .add) {
+                    [weak self] error in
+                    guard let error = error else {
+                        self?.presentGFCustomAlertOnMainThread(title: "Success!", message: "The user has succesfully added to favorite list", buttonTitle: "OK")
+                        return
+                    }
+                    self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                }
+            case .failure(let error):
+                self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
     }
     
     private func configureCollectionView() {
