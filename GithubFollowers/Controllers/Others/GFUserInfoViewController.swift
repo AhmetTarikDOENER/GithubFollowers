@@ -11,9 +11,8 @@ protocol GFUserInfoViewControllerDelegate: AnyObject {
     func gfDidRequestFollowers(for username: String)
 }
 
-
 final class GFUserInfoViewController: GFDataLoadingViewController {
-
+    
     var username: String!
     
     private var itemViews: [UIView] = []
@@ -44,6 +43,7 @@ final class GFUserInfoViewController: GFDataLoadingViewController {
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissViewController))
         navigationItem.rightBarButtonItem = doneBtn
     }
+    
     
     private func getUserInfo() {
         GFNetworkManager.shared.getUserInfo(for: username) {

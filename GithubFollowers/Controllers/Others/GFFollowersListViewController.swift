@@ -61,20 +61,24 @@ final class GFFollowersListViewController: GFDataLoadingViewController {
             self.dismissLoadingView()
             switch result {
             case .success(let followers):
-                if followers.count < 100 { self.hasMoreFollowers = false }
-                self.followers.append(contentsOf: followers)
-                if self.followers.isEmpty {
-                    let message = "This user doesn`t have any followers.😢"
-                    DispatchQueue.main.async {
-                        self.showEmptyStateView(with: message, in: self.view)
-                    }
-                    return
-                }
-                self.updateData(on: self.followers)
+                updateUI(with: followers)
             case .failure(let error):
                 self.presentGFCustomAlertOnMainThread(title: "Bad Stuff Happened.", message: error.rawValue, buttonTitle: "OK")
             }
         }
+    }
+    
+    private func updateUI(with followers: [GFFollower]) {
+        if followers.count < 100 { self.hasMoreFollowers = false }
+        self.followers.append(contentsOf: followers)
+        if self.followers.isEmpty {
+            let message = "This user doesn`t have any followers.😢"
+            DispatchQueue.main.async {
+                self.showEmptyStateView(with: message, in: self.view)
+            }
+            return
+        }
+        self.updateData(on: self.followers)
     }
     
     private func configureViewController() {
@@ -92,19 +96,23 @@ final class GFFollowersListViewController: GFDataLoadingViewController {
             self?.isLoadingMoreFollowers = true
             switch result {
             case .success(let user):
-                let favorite = GFFollower(login: user.login, avatarUrl: user.avatarUrl)
-                GFPersistenceManager.updateWith(favorite: favorite, actionType: .add) {
-                    [weak self] error in
-                    guard let error = error else {
-                        self?.presentGFCustomAlertOnMainThread(title: "Success!", message: "The user has succesfully added to favorite list", buttonTitle: "OK")
-                        return
-                    }
-                    self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
-                }
+                self?.addUserToFavorites(user: user)
             case .failure(let error):
                 self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
             }
             self?.isLoadingMoreFollowers = false
+        }
+    }
+    
+    private func addUserToFavorites(user: GFUser) {
+        let favorite = GFFollower(login: user.login, avatarUrl: user.avatarUrl)
+        GFPersistenceManager.updateWith(favorite: favorite, actionType: .add) {
+            [weak self] error in
+            guard let error = error else {
+                self?.presentGFCustomAlertOnMainThread(title: "Success!", message: "The user has succesfully added to favorite list", buttonTitle: "OK")
+                return
+            }
+            self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
         }
     }
     

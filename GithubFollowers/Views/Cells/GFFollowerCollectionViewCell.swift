@@ -31,13 +31,8 @@ class GFFollowerCollectionViewCell: UICollectionViewCell {
     //MARK: - Private
     
     public func set(follower: GFFollower) {
+        avatarImageView.downloadImage(fromURL: follower.avatarUrl)
         usernameTitleLabel.text = follower.login
-        GFNetworkManager.shared.downloadImage(from: follower.avatarUrl) {
-            [weak self] image in
-            DispatchQueue.main.async {
-                self?.avatarImageView.image = image
-            }
-        }
     }
     
     private func configureSetup() {

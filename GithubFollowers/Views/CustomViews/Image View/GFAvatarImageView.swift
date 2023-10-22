@@ -32,4 +32,13 @@ class GFAvatarImageView: UIImageView {
         clipsToBounds = true
         image = placeholderImage
     }
+    
+    func downloadImage(fromURL url: String) {
+        GFNetworkManager.shared.downloadImage(from: url) {
+            [weak self] image in
+            DispatchQueue.main.async {
+                self?.image = image
+            }
+        }
+    }
 }

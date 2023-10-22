@@ -29,13 +29,8 @@ class GFFavoritesTableViewCell: UITableViewCell {
     //MARK: - Private
     
     func set(favorite: GFFollower) {
+        avatarImageView.downloadImage(fromURL: favorite.avatarUrl)
         usernameLabel.text = favorite.login
-        GFNetworkManager.shared.downloadImage(from: favorite.avatarUrl) {
-            [weak self] image in
-            DispatchQueue.main.async {
-                self?.avatarImageView.image = image
-            }
-        }
     }
     
     private func addConstraints() {

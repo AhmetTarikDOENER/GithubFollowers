@@ -29,7 +29,6 @@ final class GFSearchViewController: UIViewController {
         return !usernameTextField.text!.isEmpty
     }
     
-    var githubImageViewTopConstraints: NSLayoutConstraint!
     
     //MARK: - Lifecycle
     
@@ -54,13 +53,9 @@ final class GFSearchViewController: UIViewController {
     
     private func addConstraints() {
         let topConstraintConstant: CGFloat = DeviceTypes.isIphoneSE || DeviceTypes.isIphone8Zoomed ? 20 : 80
-        githubImageViewTopConstraints = githubImageView.topAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.topAnchor,
-            constant: topConstraintConstant
-        )
-        githubImageViewTopConstraints.isActive = true
         
         NSLayoutConstraint.activate([
+            githubImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: topConstraintConstant),
             githubImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             githubImageView.heightAnchor.constraint(equalToConstant: 200),
             githubImageView.widthAnchor.constraint(equalToConstant: 200),

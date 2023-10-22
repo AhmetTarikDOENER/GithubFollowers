@@ -50,17 +50,21 @@ final class GFFavoritesListViewController: GFDataLoadingViewController {
             [weak self] result in
             switch result {
             case .success(let favorites):
-                if favorites.isEmpty {
-                    self?.showEmptyStateView(with: "No favorites\nAdd one to the favorite screen", in: self!.view)
-                } else {
-                    self?.favorites = favorites
-                    DispatchQueue.main.async {
-                        self?.tableView.reloadData()
-                        self?.view.bringSubviewToFront(self!.tableView)
-                    }
-                }
+                self?.updateUI(with: favorites)
             case .failure(let error):
                 self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
+    }
+    
+    private func updateUI(with favorites: [GFFollower]) {
+        if favorites.isEmpty {
+            self.showEmptyStateView(with: "No favorites\nAdd one to the favorite screen", in: self.view)
+        } else {
+            self.favorites = favorites
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
             }
         }
     }

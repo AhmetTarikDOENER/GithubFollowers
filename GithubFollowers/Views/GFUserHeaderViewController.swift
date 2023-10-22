@@ -51,7 +51,7 @@ class GFUserHeaderViewController: UIViewController {
     //MARK: - Private
     
     private func configureComponents() {
-        downloadAvatarImage()
+        avatarImageView.downloadImage(fromURL: user.avatarUrl)
         usernameLabel.text = user.login
         nameLabel.text = user.name ?? "Not Available"
         locationLabel.text = user.location ?? "No Location"
@@ -59,14 +59,6 @@ class GFUserHeaderViewController: UIViewController {
         bioLabel.numberOfLines = 3
     }
     
-    private func downloadAvatarImage() {
-        GFNetworkManager.shared.downloadImage(from: user.avatarUrl) {
-            [weak self] image in
-            DispatchQueue.main.async {
-                self?.avatarImageView.image = image
-            }
-        }
-    }
     
     private func addConstraints() {
         NSLayoutConstraint.activate([

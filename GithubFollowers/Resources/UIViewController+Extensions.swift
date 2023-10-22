@@ -14,6 +14,17 @@ extension UIView {
             addSubview($0)
         }
     }
+    
+    #warning("For iPhoneSE user info screen layout. Create content view and added into a scroll view later.")
+    func pinToEdges(of superView: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: superView.topAnchor),
+            leadingAnchor.constraint(equalTo: superView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: superView.trailingAnchor),
+            bottomAnchor.constraint(equalTo: superView.bottomAnchor),
+        ])
+    }
 }
 
 extension UIViewController {
