@@ -46,15 +46,16 @@ final class GFUserInfoViewController: GFDataLoadingViewController {
     
     
     private func getUserInfo() {
-        GFNetworkManager.shared.getUserInfo(for: username) {
-            [weak self] result in
-            switch result {
-            case .success(let user):
-                DispatchQueue.main.async {
-                    self?.configureUIElements(with: user)
+        Task {
+            do {
+                let user = try await GFNetworkManager.shared.getUserInfo(for: username)
+                configureUIElements(with: user)
+            } catch {
+                if let gfError = error as? GFError {
+                    presentGFCustomAlert(title: "Something went wrong.", message: gfError.rawValue, buttonTitle: "OK")
+                } else {
+                    presentDefaultError()
                 }
-            case .failure(let error):
-                self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
             }
         }
     }
@@ -110,7 +111,7 @@ extension GFUserInfoViewController: GFRepoItemInfoViewControllerDelegate {
     
     func gfDidTapGithubProfile(for user: GFUser) {
         guard let url = URL(string: user.htmlUrl) else {
-            presentGFCustomAlertOnMainThread(title: "Invalid URL", message: "Invalid URL attached to this user", buttonTitle: "OK")
+            presentGFCustomAlert(title: "Invalid URL", message: "Invalid URL attached to this user", buttonTitle: "OK")
             return
         }
         presentSafariViewController(with: url)

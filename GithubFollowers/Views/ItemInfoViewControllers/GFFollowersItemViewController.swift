@@ -37,7 +37,7 @@ class GFFollowersItemViewController: GFItemInfoViewController {
     
     override func didTapActionButton() {
         guard user.followers != 0 else {
-            presentGFCustomAlertOnMainThread(title: "No Followers", message: "This user has no followers", buttonTitle: "OK")
+            presentGFCustomAlert(title: "No Followers", message: "This user has no followers", buttonTitle: "OK")
             return
         }
         delegate?.gfDidTapGetFollowers(for: user)

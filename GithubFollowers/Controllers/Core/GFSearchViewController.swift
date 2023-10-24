@@ -74,7 +74,7 @@ final class GFSearchViewController: UIViewController {
     
     @objc private func didTapSearchFollowersButton() {
         guard isUsernameTyped else { 
-            presentGFCustomAlertOnMainThread(title: "Empty Username", message: "Please enter a username", buttonTitle: "OK")
+            presentGFCustomAlert(title: "Empty Username", message: "Please enter a username", buttonTitle: "OK")
             return
         }
         

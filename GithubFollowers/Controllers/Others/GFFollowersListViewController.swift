@@ -94,17 +94,19 @@ final class GFFollowersListViewController: GFDataLoadingViewController {
     
     @objc private func didTapAddButton() {
         showLoadingView()
-        GFNetworkManager.shared.getUserInfo(for: username) {
-            [weak self] result in
-            self?.dismissLoadingView()
-            self?.isLoadingMoreFollowers = true
-            switch result {
-            case .success(let user):
-                self?.addUserToFavorites(user: user)
-            case .failure(let error):
-                self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+        Task {
+            do {
+                let user = try await GFNetworkManager.shared.getUserInfo(for: username)
+                addUserToFavorites(user: user)
+                dismissLoadingView()
+            } catch {
+                if let gfError = error as? GFError {
+                    presentGFCustomAlert(title: "Something went wrong", message: gfError.rawValue, buttonTitle: "OK")
+                } else {
+                    presentDefaultError()
+                }
+                dismissLoadingView()
             }
-            self?.isLoadingMoreFollowers = false
         }
     }
     
@@ -113,10 +115,14 @@ final class GFFollowersListViewController: GFDataLoadingViewController {
         GFPersistenceManager.updateWith(favorite: favorite, actionType: .add) {
             [weak self] error in
             guard let error = error else {
-                self?.presentGFCustomAlertOnMainThread(title: "Success!", message: "The user has succesfully added to favorite list", buttonTitle: "OK")
+                DispatchQueue.main.async {
+                    self?.presentGFCustomAlert(title: "Success!", message: "The user has succesfully added to favorite list", buttonTitle: "OK")
+                }
                 return
             }
-            self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            DispatchQueue.main.async {
+                self?.presentGFCustomAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            }
         }
     }
     

@@ -50,9 +50,14 @@ final class GFFavoritesListViewController: GFDataLoadingViewController {
             [weak self] result in
             switch result {
             case .success(let favorites):
-                self?.updateUI(with: favorites)
+                DispatchQueue.main.async {
+                    self?.updateUI(with: favorites)
+                }
+                
             case .failure(let error):
-                self?.presentGFCustomAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                DispatchQueue.main.async {
+                    self?.presentGFCustomAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                }
             }
         }
     }
@@ -98,7 +103,9 @@ extension GFFavoritesListViewController: UITableViewDelegate, UITableViewDataSou
                 self?.tableView.deleteRows(at: [indexPath], with: .left)
                 return
             }
-            self?.presentGFCustomAlertOnMainThread(title: "Unable to remove", message: error.rawValue, buttonTitle: "OK")
+            DispatchQueue.main.async {
+                self?.presentGFCustomAlert(title: "Unable to remove", message: error.rawValue, buttonTitle: "OK")
+            }
         }
     }
 }
