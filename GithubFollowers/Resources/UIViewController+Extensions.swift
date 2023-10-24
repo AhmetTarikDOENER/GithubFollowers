@@ -29,13 +29,21 @@ extension UIView {
 
 extension UIViewController {
     
-    func presentGFCustomAlertOnMainThread(title: String, message: String, buttonTitle: String) {
-        DispatchQueue.main.async {
+    func presentGFCustomAlert(title: String, message: String, buttonTitle: String) {
             let alertViewController = GFCustomAlertViewController(title: title, message: message, buttonTitle: buttonTitle)
             alertViewController.modalPresentationStyle = .overFullScreen
             alertViewController.modalTransitionStyle = .crossDissolve
             self.present(alertViewController, animated: true)
-        }
+    }
+    
+    func presentDefaultError() {
+            let alertViewController = GFCustomAlertViewController(title: "Something went wrong",
+                                                                  message: "We are unable to complete your task. Please try again.",
+                                                                  buttonTitle: "OK"
+            )
+            alertViewController.modalPresentationStyle = .overFullScreen
+            alertViewController.modalTransitionStyle = .crossDissolve
+            self.present(alertViewController, animated: true)
     }
     
     func presentSafariViewController(with url: URL) {

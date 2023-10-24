@@ -15,44 +15,30 @@ final class GFNetworkManager {
     
     let cache = NSCache<NSString, UIImage>()
     
-    private init() { }
+    let decoder = JSONDecoder()
     
-    public func getFollowers(for username: String, page: Int, completion: @escaping (Result<[GFFollower], GFError>) -> Void) {
+    private init() { 
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
+    }
+    
+    public func getFollowers(for username: String, page: Int) async throws -> [GFFollower] {
         let endpoint = baseUrl + "\(username)/followers?per_page=100&page=\(page)"
         
         guard let urlString = URL(string: endpoint) else {
-            completion(.failure(.invalidLoginName))
-            return
+            throw GFError.invalidLoginName
         }
         
-        let task = URLSession.shared.dataTask(with: urlString) {
-            data, response, error in
-            
-            if let _ = error {
-                completion(.failure(.unableToComplete))
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                completion(.failure(.invalidResponse))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(.invalidData))
-                return
-            }
-            
-            do {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let followers = try decoder.decode([GFFollower].self, from: data)
-                completion(.success(followers))
-            } catch {
-                completion(.failure(.invalidData))
-            }
+        let (data, response) = try await URLSession.shared.data(from: urlString)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw GFError.invalidResponse
         }
-        task.resume()
+        do {
+            return try decoder.decode([GFFollower].self, from: data)
+        } catch {
+            throw GFError.invalidData
+        }
     }
     
     public func getUserInfo(for username: String, completion: @escaping (Result<GFUser, GFError>) -> Void) {
@@ -123,3 +109,44 @@ final class GFNetworkManager {
     }
     
 }
+
+
+
+
+//public func getFollowers(for username: String, page: Int, completion: @escaping (Result<[GFFollower], GFError>) -> Void) {
+//    let endpoint = baseUrl + "\(username)/followers?per_page=100&page=\(page)"
+//
+//    guard let urlString = URL(string: endpoint) else {
+//        completion(.failure(.invalidLoginName))
+//        return
+//    }
+//
+//    let task = URLSession.shared.dataTask(with: urlString) {
+//        data, response, error in
+//
+//        if let _ = error {
+//            completion(.failure(.unableToComplete))
+//            return
+//        }
+//
+//        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+//            completion(.failure(.invalidResponse))
+//            return
+//        }
+//
+//        guard let data = data else {
+//            completion(.failure(.invalidData))
+//            return
+//        }
+//
+//        do {
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//            let followers = try decoder.decode([GFFollower].self, from: data)
+//            completion(.success(followers))
+//        } catch {
+//            completion(.failure(.invalidData))
+//        }
+//    }
+//    task.resume()
+//}

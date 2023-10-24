@@ -53,17 +53,21 @@ final class GFFollowersListViewController: GFDataLoadingViewController {
     
     //MARK: - Private
     
-    private func getFollowers(username: String, page: Int){
+    private func getFollowers(username: String, page: Int) {
         showLoadingView()
-        GFNetworkManager.shared.getFollowers(for: username, page: page) {
-            [weak self] result in
-            guard let self = self else { return }
-            self.dismissLoadingView()
-            switch result {
-            case .success(let followers):
+        isLoadingMoreFollowers = true
+        Task {
+            do {
+                let followers = try await GFNetworkManager.shared.getFollowers(for: username, page: page)
                 updateUI(with: followers)
-            case .failure(let error):
-                self.presentGFCustomAlertOnMainThread(title: "Bad Stuff Happened.", message: error.rawValue, buttonTitle: "OK")
+                dismissLoadingView()
+            } catch {
+                if let gfError = error as? GFError {
+                    presentGFCustomAlert(title: "Bad Stuff Happened.", message: gfError.rawValue, buttonTitle: "OK")
+                } else {
+                    presentDefaultError()
+                }
+                dismissLoadingView()
             }
         }
     }
@@ -146,7 +150,7 @@ final class GFFollowersListViewController: GFDataLoadingViewController {
     private func configureSearchController() {
         let searchController = UISearchController()
         searchController.searchResultsUpdater = self
-
+        
         searchController.searchBar.placeholder = "Type username for searching"
         searchController.obscuresBackgroundDuringPresentation = true
         navigationItem.searchController = searchController
@@ -186,7 +190,7 @@ extension GFFollowersListViewController: UICollectionViewDelegate {
 extension GFFollowersListViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let filter = searchController.searchBar.text, !filter.isEmpty else { 
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
             filteredFollowers.removeAll()
             updateData(on: followers)
             onSearching = false
@@ -210,3 +214,19 @@ extension GFFollowersListViewController: GFUserInfoViewControllerDelegate {
         getFollowers(username: username, page: page)
     }
 }
+
+
+
+
+
+//GFNetworkManager.shared.getFollowers(for: username, page: page) {
+//    [weak self] result in
+//    guard let self = self else { return }
+//    self.dismissLoadingView()
+//    switch result {
+//    case .success(let followers):
+//        updateUI(with: followers)
+//    case .failure(let error):
+//        self.presentGFCustomAlertOnMainThread(title: "Bad Stuff Happened.", message: error.rawValue, buttonTitle: "OK")
+//    }
+//}
