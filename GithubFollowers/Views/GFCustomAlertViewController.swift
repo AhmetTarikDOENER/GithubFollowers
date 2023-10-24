@@ -12,7 +12,7 @@ final class GFCustomAlertViewController: UIViewController {
     private let containerView = GFAlertContainerView()
     private let titleLabel = GFTitleLabel(textAlignment: .center, fontSize: 20)
     private let errorMessageLabel = GFBodyLabel(textAlignment: .center)
-    private let errorActionButton = GFCustomButton(backgroundColor: .systemPink, title: "OK")
+    private let errorActionButton = GFCustomButton(color: .systemPink, title: "OK", systemImageName: "checkmark.circle")
     
     public let padding: CGFloat = 20
     

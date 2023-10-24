@@ -23,7 +23,7 @@ final class GFSearchViewController: UIViewController {
         return textField
     }()
     
-    private let customActionButton = GFCustomButton(backgroundColor: .systemGreen, title: "Search For Followers")
+    private let customActionButton = GFCustomButton(color: .systemGreen, title: "Search For Followers", systemImageName: "person.3")
     
     var isUsernameTyped: Bool {
         return !usernameTextField.text!.isEmpty
