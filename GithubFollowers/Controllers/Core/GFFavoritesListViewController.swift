@@ -98,13 +98,17 @@ extension GFFavoritesListViewController: UITableViewDelegate, UITableViewDataSou
         guard editingStyle == .delete else { return }
         GFPersistenceManager.updateWith(favorite: favorites[indexPath.row], actionType: .remove) {
             [weak self] error in
-            guard let error = error else { 
-                self?.favorites.remove(at: indexPath.row)
-                self?.tableView.deleteRows(at: [indexPath], with: .left)
+            guard let self = self else { return }
+            guard let error = error else {
+                self.favorites.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .left)
+                if self.favorites.isEmpty {
+                    self.showEmptyStateView(with: "No Favorites\nAdd user to the favorites screen", in: self.view)
+                }
                 return
             }
             DispatchQueue.main.async {
-                self?.presentGFCustomAlert(title: "Unable to remove", message: error.rawValue, buttonTitle: "OK")
+                self.presentGFCustomAlert(title: "Unable to remove", message: error.rawValue, buttonTitle: "OK")
             }
         }
     }

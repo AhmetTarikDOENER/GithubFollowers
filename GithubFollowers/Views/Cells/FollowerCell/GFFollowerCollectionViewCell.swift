@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class GFFollowerCollectionViewCell: UICollectionViewCell {
     
@@ -31,8 +32,14 @@ class GFFollowerCollectionViewCell: UICollectionViewCell {
     //MARK: - Private
     
     public func set(follower: GFFollower) {
-        avatarImageView.downloadImage(fromURL: follower.avatarUrl)
-        usernameTitleLabel.text = follower.login
+        if #available(iOS 16.0, *) {
+            contentConfiguration = UIHostingConfiguration {
+                GFFollowerView(follower: follower)
+            }
+        } else {
+            avatarImageView.downloadImage(fromURL: follower.avatarUrl)
+            usernameTitleLabel.text = follower.login
+        }
     }
     
     private func configureSetup() {
